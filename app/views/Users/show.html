@@ -1,0 +1,13 @@
+<div>
+  <p><b>{{currentUser.name | uppercase}}</b> {{currentUser.surname}}</p>
+  <p>Email: {{currentUser.email}}</p>
+  <p>Website: {{currentUser.website}}</p>
+  <p>Roles:</p>
+  <ul>
+    <li ng-repeat="role in currentUser.roles">{{role.name}}</li>
+  </ul>
+  <p>Projects:</p>
+  <ul>
+    <li ng-repeat="project in currentUser.projects"><a ng-href="#/projects/{{project.id}}">{{project.title}}</a></li>
+  </ul>
+</div>

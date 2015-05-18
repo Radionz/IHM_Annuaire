@@ -1,0 +1,9 @@
+<div>
+  <p>Name: {{currentProject.title}}</p>
+  <p>Year: {{currentProject.year}}</p>
+  <p>Description: {{currentProject.description}}</p>
+  <p>Users:</p>
+  <ul>
+    <li ng-repeat="user in currentProject.users"><a ng-href="#/users/{{user.id}}"><b>{{user.name | uppercase}}</b> {{user.surname}}</a></li>
+  </ul>
+</div>

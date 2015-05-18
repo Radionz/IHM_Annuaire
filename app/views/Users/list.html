@@ -1,0 +1,124 @@
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"><b>{{user.name | uppercase}}</b> {{user.surname}}</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <legend class="panel-title-custom">User list</legend>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Modal</button>
+      </div>
+      <div class="panel-body panel-body-custom">
+        <table class="table table-custom table-striped table-hover ">
+          <thead>
+          <th>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+              <input type="text" class="form-control floating-label" ng-model="search" placeholder="Search for a user"
+                     autofocus
+                     autocomplete="off">
+            </div>
+          </th>
+          </thead>
+          <tbody>
+          <tr ng-repeat="user in users | filter:search">
+            <td>
+              <b>{{user.name | uppercase}}</b> {{user.surname}}
+             <span class="pull-right">
+               <span class="badge">{{user.projects.length}} project(s)</span>
+            <a class="btn btn-custom btn-default" ng-href="#/users/{{user.id}}">
+              <i class="fa fa-eye"></i>
+            </a>
+            <button class="btn btn-custom btn-default" ng-click="editUser(user, $index)">
+              <i class="fa fa-pencil-square-o"></i>
+            </button>
+            <button class="btn btn-custom btn-default" ng-click="removeUser(user.id, $index)">
+              <i class="fa fa-times"></i>
+            </button>
+          </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <legend class="panel-title-custom">Add/Edit a user</legend>
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal" novalidate>
+          <fieldset>
+            <!-- Text input-->
+            <div class="form-group">
+              <input id="focusedInput" ng-model="formUser.name" name="name" type="text" placeholder="Name"
+                     class="form-control floating-label" required>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <input ng-model="formUser.surname" name="surname" type="text" placeholder="Surmane"
+                     class="form-control floating-label" required>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <input ng-model="formUser.email" name="email" type="text" placeholder="email@website.com"
+                     class="form-control floating-label" data-hint="not require">
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+              <input ng-model="formUser.website" name="website" type="text" placeholder="www.website.com"
+                     class="form-control floating-label" data-hint="not require">
+            </div>
+
+            <!-- Select Multiple -->
+            <!-- Obligé d'utilisé les id des projets car le select ne supporte pas
+            les objets json ou tableau en tant que valeur d'option -->
+            <div class="form-group">
+              <label class="control-label">Projetcs list:</label>
+              <select class="form-control floating-label" multiple
+                      ng-multiple="true"
+                      ng-options="project.id as project.title for project in projects"
+                      ng-model="formUser.projectsIds"
+                      data-hint="you can choose several projects">
+              </select>
+
+              <p>{{formUser.projectsIds}}</p>
+            </div>
+
+            <div class="roles-custom">
+              <div class="form-group" ng-repeat="project in formUser.projects">
+                <tags-input replace-spaces-with-dashes="false" min-tags="1" ng-model="project.roles"
+                            display-property="name" placeholder="Roles in project: {{project.title}}"></tags-input>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <button ng-click="submit(formUser)" name="submit" class="btn btn-success">Save user</button>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
